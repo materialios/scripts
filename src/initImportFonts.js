@@ -1,4 +1,4 @@
-const initIndexHtml = require('initIndexHtml')
+const initIndexHtml = require('./initIndexHtml')
 
 const initImportFonts = () => {
   initIndexHtml([
