@@ -1,6 +1,6 @@
 {
   "name": "@materialios/scripts",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "description": "@materialios's scripts",
   "private": false,
   "main": "lib/index.js",
@@ -50,5 +50,8 @@
     "@babel/core": "^7.13.1",
     "@babel/preset-react": "^7.12.13",
     "@mnrendra/include-css": "^0.1.6"
+  },
+  "dependencies": {
+    "@mnrendra/lssync": "^0.1.4"
   }
 }
