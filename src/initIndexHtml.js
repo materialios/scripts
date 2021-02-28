@@ -46,6 +46,7 @@ const initIndexHtml = (newLines = [], options = {}) => {
           newIndex = beforeEndOfLine + indent + newLine + '\n'
         }
       })
+      addingEndOfLine(indent)
     }
 
     if (i < eachLines.length - 1) {
