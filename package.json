@@ -1,6 +1,6 @@
 {
   "name": "@materialios/scripts",
-  "version": "0.1.11",
+  "version": "0.2.1",
   "description": "@materialios's scripts",
   "private": false,
   "main": "lib/index.js",
@@ -12,7 +12,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf lib && npx babel src --out-dir lib && npx include-css --origin=./src/initIndexAndApp/templates --destination=./lib/initIndexAndApp/templates && npm --no-git-tag-version version patch"
+    "build": "rm -rf lib && npx babel src --out-dir lib && npx include-css --origin=./src --destination=./lib && npm --no-git-tag-version version patch"
   },
   "repository": {
     "type": "git",
