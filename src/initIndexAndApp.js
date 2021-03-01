@@ -43,7 +43,7 @@ const takeOut = ({
 
 const takeIn = ({
   tmpDir = `.${_}node_modules${_}@materialios${_}scripts${_}templates`,
-  srcDir = `${_}src`,
+  srcDir = `.${_}src`,
   fileName = 'index',
   fileExt = '.css'
 }) => {
