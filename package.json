@@ -1,6 +1,6 @@
 {
   "name": "@materialios/scripts",
-  "version": "0.1.9",
+  "version": "0.1.11",
   "description": "@materialios's scripts",
   "private": false,
   "main": "lib/index.js",

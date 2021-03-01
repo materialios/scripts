@@ -4,9 +4,10 @@ const lsSync = require('@mnrendra/lssync')
 
 const _ = path.sep
 
-const takeOut = (file = 'index.css') => {
+const takeOut = (fileName = 'index', fileExt = '.css') => {
   const srcDir = `.${_}src${_}`
   const archiveDir = `${srcDir}${'archive'}${_}`
+  const file = fileName + fileExt
 
   if (!fs.existsSync(archiveDir)) fs.mkdirSync(archiveDir)
 
@@ -14,25 +15,25 @@ const takeOut = (file = 'index.css') => {
 
   if (!fs.existsSync(`${archiveDir}${file}`)) fs.renameSync(`${srcDir}${file}`, `${archiveDir}${file}`)
   else {
-    const archivedIndexJs = fs.readFileSync(`${archiveDir}${file}`, 'utf8')
-    const indexJs = fs.readFileSync(`${srcDir}${file}`, 'utf8')
+    const srcData = fs.readFileSync(`${srcDir}${file}`, 'utf8')
 
     const archiveFiles = lsSync(archiveDir)
-    console.log('archiveFiles', archiveFiles)
-
-    if (indexJs === archivedIndexJs) fs.unlinkSync(`${srcDir}${file}`)
-    else {
-      const byDot = file.split('.')
-      fs.renameSync(
-        `${srcDir}${file}`,
-        `${archiveDir}${byDot[byDot.length - 2]}.${new Date().getTime()}${'.'}${byDot[byDot.length - 1]}`
-      )
-    }
+    archiveFiles.forEach((archiveFile) => {
+      if (archiveFile.extension === fileExt && archiveFile.path.includes(`${_}${fileName}`)) {
+        const archivedDate = fs.readFileSync(`${archiveDir}${archiveFile.file}`, 'utf8')
+        if (archivedDate === srcData) {
+          fs.renameSync(archiveFile.path, `${archiveFile.directory}${fileName}.${new Date().getTime()}${fileExt}`)
+          fs.unlinkSync(`${srcDir}${file}`)
+        } else {
+          fs.renameSync(`${srcDir}${file}`, `${archiveFile.directory}${fileName}.${new Date().getTime()}${fileExt}`)
+        }
+      }
+    })
   }
 }
 
 const takeIn = (file = 'index.css') => {
-  const _Dir = `.${_}lib${_}initIndexAndApp${_}templates${_}`
+  const _Dir = `.${_}node_modules${_}@materialios${_}scripts${_}lib${_}initIndexAndApp${_}templates${_}`
   const _DirFile = `${_Dir}${file}`
 
   if (!fs.existsSync(_DirFile)) return
@@ -45,19 +46,19 @@ const takeIn = (file = 'index.css') => {
 }
 
 const files = [
-  'index.js',
-  'index.css',
-  'App.js',
-  'App.css'
+  { name: 'index', ext: '.js' },
+  { name: 'index', ext: '.css' },
+  { name: 'App', ext: '.js' },
+  { name: 'App', ext: '.css' }
 ]
 
 const initIndexAndApp = () => {
-  files.forEach(file => {
-    takeOut(file)
+  files.forEach(({ name, ext }) => {
+    takeOut(name, ext)
   })
 
-  files.forEach(file => {
-    takeIn(file)
+  files.forEach(({ name, ext }) => {
+    takeIn(name, ext)
   })
 }
 
